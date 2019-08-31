@@ -10,7 +10,7 @@ The Uniform Singapore Energy Price (USEP) changes at every half hour.
 
 Below is data from the year of 2018, the first plot showing the evolution of the prices over the year, and the second showing the spread of the prices in each period of the day (48 in all).
 
-{% include /assets/img/usep/2018.html %}
-{% include /assets/img/usep/scatter.html %}
+{% include usep/2018.html %}
+{% include usep/scatter.html %}
 
 As can be seen, extremely high prices are normally in the day during working hours.
