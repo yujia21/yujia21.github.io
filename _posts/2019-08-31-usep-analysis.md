@@ -12,3 +12,5 @@ Below is data from the year of 2018, the first plot showing the evolution of the
 
 {% include /assets/img/usep/2018.html %}
 {% include /assets/img/usep/scatter.html %}
+
+As can be seen, extremely high prices are normally in the day during working hours.
