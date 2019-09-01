@@ -4,7 +4,7 @@ title: "USEP Exploratory Data Analysis"
 author: "Yu Jia Cheong"
 categories: energy
 tags: [energy singapore]
-image: cuba-4.jpg
+image: city-4.jpg
 ---
 The following data is retrieved from the Energy Market Company website and is available for free.
 
