@@ -9,7 +9,7 @@ image: city-4.jpg
 # Dataset
 The following data is retrieved from the [Energy Market Company website](https://www.emcsg.com/marketdata/priceinformation) and is available for free.
 
-This dataset comprises of the 2018 Uniform Singapore Energy Price (USEP), in $/MWh, which changes at every half hour and is dependent on the demand and supply of the period, as well as the overall demand in Singapore in MW.
+This dataset comprises of the 2018 Uniform Singapore Energy Price (USEP) as well as the overall demand in Singapore in MW, among other variables that are not shown below. Data is available in half hourly periods. The USEP is here in $/MWh, and is determined by the demand and supply of the electricity market of the period in question.
 
 |    | INFORMATION TYPE   | DATE        |   PERIOD |   USEP ($/MWh) |   DEMAND (MW) |
 |---:|:-------------------|:------------|---------:|---------------:|--------------:|
@@ -20,11 +20,12 @@ This dataset comprises of the 2018 Uniform Singapore Energy Price (USEP), in $/M
 |  4 | USEP               | 01 Jan 2018 |        5 |          80.55 |       4741.2  |
 
 # Preliminary Plots
-One of the first things to do would be a quick plot of the evolution of the electricity prices over the year. The prices are generally around 100$/MWh, but there are occasionally significant peaks.
+One of the first things to do would be a quick plot of the evolution of the electricity prices over the year. The prices are generally around 100$/MWh, but occasionally there are significant peaks.
 
 {% include usep/usep_2018.html %}
 
-Indeed, the maximum value for the USEP is more than 1000$/MWh greater than the 0.75 quantile, while the minimum value is only about 70$/MWh away from the same value (and in fact this holds for the 0.9 quantile as well). Outliers in this dataset are extremely skewed towards one side and of extreme values!
+Indeed, the maximum value for the USEP is more than 1000$/MWh greater than the 0.75 quantile, while the minimum value is only about 70$/MWh away from the same value (and in fact this holds for the 0.9 quantile as well). Outliers in this dataset are extremely skewed towards one side and take very extreme values!
+
 |       |   USEP ($/MWh) |   DEMAND (MW) |
 |:------|---------------:|--------------:|
 | mean  |       110.295  |      5874.08  |
@@ -35,14 +36,14 @@ Indeed, the maximum value for the USEP is more than 1000$/MWh greater than the 0
 | 75%   |       111.13   |      6465.4   |
 | max   |      1354.6    |      7070.66  |
 
-Grouping the data by the period of the week it belongs to (such that period 0 on Monday is 0 and Period 48 on Sunday is 336), we can calculate some statistics such as the average values that the USEP and demand takes. From the graph below we observe that there is no clear weekday and weekend difference for the USEP, which was for me slightly surprising. As is expected, the average weekly demand shows a clear weekday and weekend difference (the demand in Singapore coming mainly from industrial use and not from residential ones). We can also see a clear dip in demand during the weekday lunch hours!
+Grouping the data by the period of the week it belongs to (such that period 0 on Monday is 0 and Period 48 on Sunday is 336), we can calculate some statistics such as the average values that the USEP and demand takes. From the graph below we observe that there is no clear weekday and weekend difference for the USEP, which was for me slightly surprising. As is expected, the average weekly demand shows a clear weekday and weekend difference (the demand in Singapore coming mainly from industrial use and not from residential ones). We can also see a clear dip in demand during the weekday lunch hours, as well as the half working day on Saturday (not sure what explains the peak on Sunday afternoon though?)
 {% include usep/usep_ave.html %}
 {% include usep/demand_ave.html %}
 
-The mean and median are more or less the same for the demand, but notice also that for the USEP, the mean is much higher than the median in the day, again due to the skew given by extreme valued outliers towards the high prices and not towards the low prices (no negative electricity prices in Singapore, unlike in Europe!).
+The mean and median are more or less the same for the demand, but notice again that for the USEP, the mean is much higher than the median in the day. The skew given by extreme valued outliers is clearly towards the high prices and not towards the low prices (no negative electricity prices in Singapore, unlike in Europe!).
 
 # Outliers in USEP
-We know that electricity prices are determined mainly by supply and demand needs, and the demand remains more or less stable. Indeed, these outliers are generally due to unforeseen faults or planned maintenance of the more efficient (and cheaper) generators occuring when there is a significant demand for electricity. This drives up the production cost required to cover the demand and consequently the USEP for these periods.
+We know that electricity prices are determined mainly by supply and demand needs, and the demand remains more or less stable. Indeed, these outliers in prices are generally due to unforeseen faults or planned maintenance of the more efficient (and cheaper) generators occuring when there is a significant demand for electricity. This drives up the production cost required to cover the demand and consequently the USEP for these periods.
 
 To better get a sense of when these outliers occur, we look at the scatter plot of the prices with respect to the periods. The following two graphs show the spread of the prices in each period of the day (48 in all), as well as each period of the week. Extremely high prices generally occur in the day during working hours (when demand is high), and seems to be pretty independent of the day of the week (noting that planned maintenance often happens on weekends when demand is lower).
 {% include usep/usep_scatter_period.html %}
