@@ -7,7 +7,7 @@ tags: [weather singapore EDA]
 image: rain-1.jpg
 ---
 # Dataset
-Real time weather data can be retrieved from this [API provided by NEA and the Singapore government](https://data.gov.sg/dataset/realtime-weather-readings) and is available for free. We have air temperature, rainfall, windspeed, and wind direction data. 
+Real time weather data can be retrieved from this [API provided by NEA and the Singapore government](https://data.gov.sg/dataset/realtime-weather-readings) and is available for free. We have air temperature, rainfall, windspeed, and wind direction data.
 
 Data can only be fetched day by day or for a specific timestep through this API. It is pretty simple to write a quick script to request data from the API using Python's "requests" library. Data is returned in json format and subsequently converting the data into a pandas dataframe just takes a little more work (a naive conversion into a dataframe results in two columns: one for the timestamp and one where the entry for each timestep is a list of dictionaries of the form {"sensor id": xx, "value", yy}).
 
@@ -51,4 +51,4 @@ According to your gut feeling, how often does it rain in Singapore? Asked more q
 This might seem unintuitive as it seems to rain pretty often in Singapore. In fact, the issue here is that we are considering the data at the very fine timestep of 5 minutes. Once we group the data by day and take the maximum rainfall of each day, we have the following ratio: 90 out of 245 days, or 36.7%. This feels more reasonable - this equates to there being rain about 2 to 3 days each week. We realize also that this naturally means that we often have rain - no rain patches within the same day, in order for the percentages to differ as such.
 
 Zooming back out, we can take a look at how this percentage varies across the island. Let's also throw in the maximum recorded rainfall at each sensor from our dataset.
-{% include weather/geojson_simple.html %}
+{% include weather/geojson.html %}
