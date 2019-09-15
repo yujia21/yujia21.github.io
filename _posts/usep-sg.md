@@ -1,10 +1,11 @@
 ---
 layout: post
-title: "USEP Exploratory Data Analysis"
+title: "Exploratory Data Analysis - Singapore's Electricity Prices (USEP)"
 author: "Yu Jia Cheong"
 categories: energy
 tags: [energy singapore]
-image: city-4.jpg
+image: city-1.jpg
+date: "2019 08 31"
 ---
 # Dataset
 The following data is retrieved from the [Energy Market Company website](https://www.emcsg.com/marketdata/priceinformation) and is available for free.
