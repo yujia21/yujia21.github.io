@@ -1,18 +1,17 @@
 ---
 layout: post
-title: "Exploratory Data Analysis - Singapore's Weather"
+title: "Singapore's Weather"
 author: "Yu Jia Cheong"
 categories: weather
-tags: [weather singapore]
+tags: [weather singapore EDA]
 image: rain-1.jpg
-date: "2019 09 14"
 ---
-# Data
-Real time weather data can be retrieved from this [API provided by NEA and the Singapore government](https://data.gov.sg/dataset/realtime-weather-readings) and is available for free.
+# Dataset
+Real time weather data can be retrieved from this [API provided by NEA and the Singapore government](https://data.gov.sg/dataset/realtime-weather-readings) and is available for free. We have air temperature, rainfall, windspeed, and wind direction data. 
 
 Data can only be fetched day by day or for a specific timestep through this API. It is pretty simple to write a quick script to request data from the API using Python's "requests" library. Data is returned in json format and subsequently converting the data into a pandas dataframe just takes a little more work (a naive conversion into a dataframe results in two columns: one for the timestamp and one where the entry for each timestep is a list of dictionaries of the form {"sensor id": xx, "value", yy}).
 
-## Rainfall data
+## Rainfall
 Once we have split the sensors up into different columns, we can look at our data properly. The meta data in the retrieved json also gives the longitude and latitude of the sensor, along with the units the dataset uses (mm). We will not keep the metadata in our dataframe, but for a quick sense of where the sensors are located we have the following plot.
 
 {% include weather/geojson_simple.html %}
