@@ -40,14 +40,22 @@ Now we can get to work!
 ## Plots
 Counting the number of non-null entries per boat seemed like the most obvious and helpful thing to do - this allows the club to know which boats are most used and in highest demand.
 
-{% include sports/overall_boat_usage.html %}
+{% include row/overall_boat_usage.html %}
 
-A clear preference for smaller sized boats - understandable due to our small club sizes! Some of the needs surfaced from this analysis confirmed some of the felt needs of the club and translated to new boats bought over the year (the ERC blues, towards the end of the year).
-Now doing the same count but by time slot of the week and weight class of boat:
+A clear preference for singles and doubles - understandable due to our small club sizes! Some of the needs surfaced from this analysis confirmed some of the felt needs of the club and translated to new boats bought over the year (the ERC blues, towards the end of the year).
 
-{% include sports/boat_usage_by_slot.html %}
+I then regrouped the data and did the same plot by weight class and boat type.
+{% include row/boat_usage_by_weight.html %}
+{% include row/boat_usage_by_type.html %}
 
-{% include sports/boat_usage_by_weight.html %}
+At first glance it might seem that singles are the most popular boat, but remember that we should in fact correct for the number of people in the boats:
+{% include row/boat_usage_by_type_corrected.html %}
+
+Even then, this isn't exactly fair as we have more singles and doubles than fours and quads in the club.
+
+When do our rowers get on the water? Doing the same count but by time slot of the week:
+
+{% include row/boat_usage_by_slot.html %}
 
 As expected, weekends are when we get the most rowers down. There's also a clear preference for morning rowing rather than afternoon rowing.
 
@@ -55,6 +63,6 @@ The last thing I did was to do an "ugly" analysis of rows per rower. This was di
 
 Anonymizing slightly the user names, we have:
 
-{% include sports/boat_usage_by_rower.html %}
+{% include row/boat_usage_by_rower.html %}
 
 Time to give myself a pat on the back for being one of the most frequent rowers in the club, and retire my analysis notebook till the end of 2020...
