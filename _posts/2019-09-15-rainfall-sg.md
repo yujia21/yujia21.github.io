@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Singapore's Weather"
+title: "How much does it rain in Singapore?"
 author: "Yu Jia Cheong"
 categories: weather
-tags: [weather singapore EDA]
+tags: [weather rain singapore EDA]
 image: rain-1.jpg
 ---
 # Dataset
