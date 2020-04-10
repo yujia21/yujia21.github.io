@@ -36,7 +36,7 @@ Right away we can figure out what some of these columns mean:
 * rssi is [Received Signal Strength Indicator](https://en.wikipedia.org/wiki/Received_signal_strength_indication), which when in negative form represents a stronger signal the nearer to 0 it is.
 * txPower is mostly NaNs, with a few ones sprinkled in between, not too sure what this can be - battery power consumed by transaction?
 
-First things first - let's convert that timestamp into a more readable form. I first tried to piece together where I was for each of the groups of entries, but I couldn't figure out why there were readings at 10.30am when I was ostensibly working from home. Digging a little deeper, I realized that there were also readings at midnight when I was definitely at home and asleep - so something was definitely up! The answer is actually pretty simple - the timestamps were saved in UTC, so I needed to add 8 hours to it for the data to make sense in Singapore time. Keeping only the interesting columns and adding a quick parser on the phone model to get the brand of the phone:
+First things first - let's convert that timestamp into a more readable form. I first tried to piece together where I was for each of the groups of entries, but I couldn't figure out why there were entries at 10.30am when I was ostensibly working from home. Digging a little deeper, I realized that there were also entries at midnight when I was definitely at home and asleep - so something was definitely up! The answer is actually pretty simple - the timestamps were saved in UTC, so I needed to add 8 hours to it for the data to make sense in Singapore time. Keeping only the interesting columns and adding a quick parser on the phone model to get the brand of the phone:
 
 | timestamp                  | msg      | modelC     | modelC_parsed   |   rssi |
 |:---------------------------|:---------|:-----------|:----------------|-------:|
@@ -46,7 +46,7 @@ First things first - let's convert that timestamp into a more readable form. I f
 | 2020-03-27 18:38:08.374000 | PpPIg... | SM-G960F   | Samsung         |    -87 |
 | 2020-03-27 18:38:18.986000 | 2k7qJ... | SM-N960F   | Samsung         |    -65 |
 
-Doing the same thing for the trace_together_status database, we see that it keeps a record of when scanning is started and stopped on the phone:
+Doing the same thing for the trace_together_status database, we see that it keeps a record of when scanning starts and stops. I converted these strings into 1s and 0s, for when TraceTogether was and wasn't scanning.
 
 |   id | timestamp                  | msg              |
 |-----:|:---------------------------|:-----------------|
@@ -58,24 +58,26 @@ Doing the same thing for the trace_together_status database, we see that it keep
 
 
 # Number of Encounters
-Each entry in the record_database is a recorded ping from another phone, therefore the total number of entries in the database would include multiple entries from the same individual encountered. Since the encrypted identifiant in the 'msg' column is unique for each individual, a groupby by date and 'msg' would give us the total number of unique encounters I had. Grouping by date would enable us to account for the possibility of running into the same person twice on different days, although this subsequently holds the assumption that all entries with the same individual encountered in the same day are from the same encounter (although in fact there were no repeated encounters in my set of data).
-
 Some quick numbers to start things off:
 * Number of entries: 248
 * Number of unique encounters: 155
 
-The cumulative plot of the total number of unique encounters over the 15 days or so shows just how rarely I was out - most of the increments happen by leaps and bounds with long periods of no new encounters (where my bluetooth was off and I was home).
+Each entry in the record_database is a recorded ping from another phone, therefore the total number of entries in the database would include multiple entries from the same individual encountered. Since the encrypted identifiant in the 'msg' column is unique for each individual, a groupby by date and 'msg' would give us the total number of unique encounters I had. Grouping by date would enable us to account for the possibility of running into the same person twice on different days, although this subsequently holds the assumption that all entries with the same individual encountered in the same day are from the same "session" (by which I mean a continuous block of time where we were in close contact and pings were exchanged). In fact there were no repeated encounters in my set of data - each individual encountered only had one "session" with me. This was to be expected as I was mostly working from home, where I turned scanning off.
+
+The cumulative plot of the total number of unique encounters over the 15 days or so shows just how rarely I was out - most of the increments happen by leaps and bounds with long periods of no new encounters.
 
 ![Cumulative Encounters](/assets/img/trace/encounters_cumulative.png)
 
-To get a sense of the density of encounters (just how many people were pinging my phone at one time?), we can also look at the total number of unique encounters per 30 minute blocks. From this graph, each outing of mine is made pretty clear!
+To get a sense of the density of encounters (just how many people were pinging my phone at one time?), we can also look at the total number of unique encounters per 30 minute blocks. From this graph, each outing of mine is made pretty clear! (30 minutes was chosen at random, we would have a similar but shorter graph for shorter blocks of time)
 
 ![Unique encounters by 30 minute block](/assets/img/trace/encounters_30.png)
 
 # Length of Encounters
-But the number of people I come into contact with is less interesting than knowing how long I was in contact with them and at what "proximity". One of the first things I thought of doing was to consider the number of pings recorded per individual encounter. Since I had made sure that no individual was encountered on more than one day, I simply did a groupby on the 'msg' column for this. Making the (reasonable) assumption that each encounter is continuous, we can find the length of the encounter by looking at the difference between the timestamps of the first and last ping per individual.
+The number of people I come into contact with is less interesting than knowing how long I was in contact with them and at what "proximity". Let us look at the number of pings recorded in each session where I encountered another individual. Since I had made sure that I did not come into contact with the same individual on multiple days, I simply did a groupby on the 'msg' column for this.
 
 ![Histogram of number of pings](/assets/img/trace/ping_histogram.png)
+
+Making the (reasonable) assumption that each encounter is continuous, we can further find the length of the encounter by looking at the difference between the timestamps of the first and last ping per individual.
 
 ![Histogram of duration of encounters](/assets/img/trace/time_histogram.png)
 
@@ -87,15 +89,15 @@ Unfortunately, as the RSSI signal doesn't have standard units, I am unable to ca
 
 ![Histogram of average RSSI per session](/assets/img/trace/rssi_average.png)
 
-A pretty normal distribution, centered around -90 to -85, perhaps with a slight skew to the left (more people who were far than who were near). I'm not quite sure what the cutoff would be for the TraceTogether team to consider someone to have been in close contact with you both in terms of RSSI and length of duration though.
+A pretty normal distribution, centered around -90 to -85, perhaps with a slight skew to the left (more people who were far than who were near). I'm not quite sure what the cutoff would be for the contact tracing team to consider someone to have been in close contact with you both in terms of proximity and length of duration though.
 
-What we can do however is to plot the received signal strength of each individual with a different colour to get a sense of how different encounters moved around me (my phone) each time I turned my bluetooth on. A dinner at Clementi hawker center and subsequent quick jaunt in a supermarket with three friends looks like this:
+What we can do however is to plot the received signal strength of each individual with a different colour to get a sense of how different people moved around me (my phone) each time I turned my bluetooth on. A dinner at Clementi hawker center and subsequent quick jaunt in a supermarket with three friends looks like this:
 
 ![RSSI of encounters at Clementi](/assets/img/trace/rssi_hawker.png)
 
-This outing contained the longest encounter I had of 45 minutes (the blue line from 7.30pm to about 8.15pm). I suspect that this was one of my friends as within this time frame we were moving from the hawker center to the supermarket, and it seems unlikely that someone else would have been doing the same thing! (unfortunately he hasn't confirmed or denied his phone model so I can't be sure!)
+This outing contained the longest encounter I had of 45 minutes (the blue line from 7.30pm to about 8.15pm). I suspect that this was one of my friends as within this time frame we were moving from the hawker center to the supermarket, and it seems unlikely that someone else would have been doing the same thing! (unfortunately he has yet to confirm or deny his phone model so I can't be sure - my two other friends do not use the app though.)
 
-As for a HIIT session at my gym, where we are normally less than 10 per class and my phone was left in my bag at the side of the room:
+As for a morning HIIT session at my gym, where we are normally less than 10 per class and my phone was left in my bag at the side of the room:
 
 ![RSSI of encounters at Move to Live gym](/assets/img/trace/rssi_gym.png)
 
@@ -109,16 +111,16 @@ Evidently, there were quite a few times when TraceTogether was scanning but no p
 
 ![Encounters and scanning over one day](/assets/img/trace/rssi_scanning_day.png)
 
-This was the last day before Circuit Breaker officially started, when I headed back to my office and was camped outside to work in between time to alternate time in the office with my colleague!
+This was the last day before Circuit Breaker officially started, when I was in the gym in the morning (no pings), and when in the afternoon I headed back to my office and was camped outside to work in between time to alternate time in the office with my colleague (multiple pings) - my brother being in a good mood on this particular day, I was dropped off by car, and subsequently walked home in the evening, so no time spent on public transport either.
 
 # Phone Models
-Others who've extracted their data have also looked at the distribution of phone models encountered. From my data, Samsung appears to have a disproportionately large amount of TraceTogether users, and this is in line with observations from others too. This is likely due to complications of using the app with iPhone resulting in slower uptake among iPhone users (complications such as having to keep it in the foreground, having to keep the screen on - if not for the latest version of the app, at least at the start).
+Others who've extracted their data have also looked at the different phone models encountered. From my data, Samsung appears to have a disproportionately large amount of TraceTogether users, and this is in line with observations from others too. This is likely due to complications of using the app with iPhone resulting in slower uptake among iPhone users (complications such as having to keep it in the foreground, having to keep the screen on - if not for the latest version of the app, at least at the start). I did not expect to see that many Pixel users too!
 
 ![Phone brands encountered](/assets/img/trace/phone_brands.png)
 
 ![Phone models encountered](/assets/img/trace/phone_models.png)
 
 # Conclusion
-So would TraceTogether really be useful in tracing contacts? I would say that it's main utility is indeed not so much in helping you remember which friends you met but to track the casual strangers you might come into close contact with. This little exercise has made me realize just how many unknown people I would come into contact with in just one outing - especially knowing that the data represents just a small portion of the actual number of people I would have met! I suspect that the app would have been a lot more helpful if it had been more widely installed and at an earlier date, unfortunately, with the standard government-as-panopticon concerns, this might have been hard to swallow. Full access to such data over a long period of time from every resident in the country would certainly allows tracking of who each person met and where they went, but I would imagine that there would be a lot of noise in the data in shorter time frames (I'd meet a friend as often / as rarely as a regular at the gym with whom I've never spoken a word, and it'd be hard to differentiate one data point from the other). On the other hand, if you were indeed carrying out suspicious business, you could probably just turn off your bluetooth or better yet, leave your phone at home.
+Is TraceTogether really useful in tracing contacts? I would say that it's main utility is indeed not so much in helping you remember which friends you met but to track the casual strangers you might come into close contact with. This little exercise has served to highlight just how many unknown people I come into contact with in just one outing - especially knowing that the data represents just a small portion of the actual number of people I would have met!
 
-Stay safe!
+I suspect that the app would have been a lot more helpful if it had been more widely installed and at an earlier date, unfortunately, with the standard government-as-panopticon concerns, this might have been hard to put into place. Full access to such data over a long period of time from every resident in the country would certainly allows tracking of who each person met and where they went, but I would imagine that there would be a lot of noise in the data in shorter time frames (I'd meet a friend as often / as rarely as a regular at the gym with whom I've never spoken a word, and it'd be hard to differentiate one data point from the other). On the other hand, if you were indeed carrying out suspicious business, you could probably just turn off your bluetooth or better yet, leave your phone at home.
