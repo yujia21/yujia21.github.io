@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "What data does TraceTogether really keep?"
+title: "What data does TraceTogether really track?"
 author: "Yu Jia Cheong"
 categories: personal
 tags: [tracetogether singapore data covid19]
