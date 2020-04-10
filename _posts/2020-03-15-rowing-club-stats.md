@@ -2,7 +2,7 @@
 layout: post
 title: "Which boat should my rowing club buy?"
 author: "Yu Jia Cheong"
-categories: sports
+categories: personal
 tags: [sports rowing language count]
 image: row.jpg
 ---
