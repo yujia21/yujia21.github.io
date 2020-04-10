@@ -62,9 +62,9 @@ Some quick numbers to start things off:
 * Number of entries: 248
 * Number of unique encounters: 155
 
-Each entry in the record_database is a recorded ping from another phone, therefore the total number of entries in the database would include multiple entries from the same individual encountered. Since the encrypted identifiant in the 'msg' column is unique for each individual, a groupby by date and 'msg' would give us the total number of unique encounters I had. Grouping by date would enable us to account for the possibility of running into the same person twice on different days, although this subsequently holds the assumption that all entries with the same individual encountered in the same day are from the same "session" (by which I mean a continuous block of time where we were in close contact and pings were exchanged). In fact there were no repeated encounters in my set of data - each individual encountered only had one "session" with me. This was to be expected as I was mostly working from home, where I turned scanning off.
+Each entry in the record_database is a recorded ping from another phone, therefore the total number of entries in the database would include multiple entries from the same individual encountered. Since the encrypted identifiant in the 'msg' column is unique for each individual, a groupby by date and 'msg' would give us the total number of unique encounters I had. Grouping by date would enable us to account for the possibility of running into the same person twice on different days. This of course, subsequently holds the assumption that all entries with the same individual was not encountered more than once in the same day under separate occassions. Since on most days I was only going out once, this assumption was valid on my dataset. In fact, there were no repeated encounters in my set of data - each individual encountered only had one block of ping exchanges with me. This was to be expected as I did not meet friends or colleagues more than once over this period of time, and did not turn on TraceTogether at home.
 
-The cumulative plot of the total number of unique encounters over the 15 days or so shows just how rarely I was out - most of the increments happen by leaps and bounds with long periods of no new encounters.
+Indeed the cumulative plot of the total number of unique encounters over the 15 days or so shows just how rarely I was out - most of the increments happen by leaps and bounds with long periods of no new encounters.
 
 ![Cumulative Encounters](/assets/img/trace/encounters_cumulative.png)
 
@@ -73,7 +73,7 @@ To get a sense of the density of encounters (just how many people were pinging m
 ![Unique encounters by 30 minute block](/assets/img/trace/encounters_30.png)
 
 # Length of Encounters
-The number of people I come into contact with is less interesting than knowing how long I was in contact with them and at what "proximity". Let us look at the number of pings recorded in each session where I encountered another individual. Since I had made sure that I did not come into contact with the same individual on multiple days, I simply did a groupby on the 'msg' column for this.
+The number of people I come into contact with is less interesting than knowing how long I was in contact with them and at what "proximity". Let us look at the number of pings recorded each time I encountered another individual. Since I had made sure that I did not come into contact with the same individual on multiple days, I simply did a groupby on the 'msg' column for this.
 
 ![Histogram of number of pings](/assets/img/trace/ping_histogram.png)
 
@@ -85,9 +85,9 @@ As can be expected, most encounters were short ones with only one ping, and last
 
 
 # Signal Strength
-Unfortunately, as the RSSI signal doesn't have standard units, I am unable to calculate the distance of the other party from my phone simply based on the RSSI data. The data can however give me a sense of how these distances are distributed. Here, I take the average RSSI per "session" with each individual to remove the bias of longer sessions having more than one data entry.
+Unfortunately, as the RSSI signal doesn't have standard units, I am unable to calculate the distance of the other party from my phone simply based on the RSSI data. The data can however give me a sense of how these distances are distributed. Here, I take the average RSSI per encounter with each individual to remove the bias of longer encounters having more than one data entry.
 
-![Histogram of average RSSI per session](/assets/img/trace/rssi_average.png)
+![Histogram of average RSSI per encounter](/assets/img/trace/rssi_average.png)
 
 A pretty normal distribution, centered around -90 to -85, perhaps with a slight skew to the left (more people who were far than who were near). I'm not quite sure what the cutoff would be for the contact tracing team to consider someone to have been in close contact with you both in terms of proximity and length of duration though.
 
@@ -125,4 +125,4 @@ Is TraceTogether really useful in tracing contacts? I would say that it's main u
 
 I suspect that the app would have been a lot more helpful if it had been more widely installed at an earlier date, unfortunately, with the standard government-as-panopticon concerns, this might have been hard to put into place. Full access to such data over a long period of time from every resident in the country would certainly allow tracking of who each person met and potentially where they went too - I imagine that "geographical clusters" can be formed if we drew a graph linking every two individuals who had met each other.
 
-That being said, I would imagine that there would be a lot of noise in the data in shorter time frames (I'd meet a friend as often / as rarely as a regular at the gym with whom I've never spoken a word, and it'd be hard to differentiate one data point from the other). On the other hand, if you were indeed carrying out suspicious business, you could probably just turn off your bluetooth or better yet, leave your phone at home.
+That being said, I would imagine that there would be a lot of noise for data collected over a shorter time frame - I'd probably meet a friend as often as I do another regular at the gym with whom I've never spoken a word, and it'd be hard to differentiate one data point from the other. Furthermore, if you were indeed carrying out suspicious business, you could probably just turn off your bluetooth or better yet, leave your phone at home.
