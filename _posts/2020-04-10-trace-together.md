@@ -66,18 +66,18 @@ Some quick numbers to start things off:
 
 The cumulative plot of the total number of unique encounters over the 15 days or so shows just how rarely I was out - most of the increments happen by leaps and bounds with long periods of no new encounters (where my bluetooth was off and I was home).
 
-![Cumulative Encounters](/_includes/trace/encounters_cumulative.png)
+![Cumulative Encounters](/assets/img/trace/encounters_cumulative.png)
 
 To get a sense of the density of encounters (just how many people were pinging my phone at one time?), we can also look at the total number of unique encounters per 30 minute blocks. From this graph, each outing of mine is made pretty clear!
 
-![Unique encounters by 30 minute block](/_includes/trace/encounters_30.png)
+![Unique encounters by 30 minute block](/assets/img/trace/encounters_30.png)
 
 # Length of Encounters
 But the number of people I come into contact with is less interesting than knowing how long I was in contact with them and at what "proximity". One of the first things I thought of doing was to consider the number of pings recorded per individual encounter. Since I had made sure that no individual was encountered on more than one day, I simply did a groupby on the 'msg' column for this. Making the (reasonable) assumption that each encounter is continuous, we can find the length of the encounter by looking at the difference between the timestamps of the first and last ping per individual.
 
-![Histogram of number of pings](/_includes/trace/ping_histogram.png)
+![Histogram of number of pings](/assets/img/trace/ping_histogram.png)
 
-![Histogram of duration of encounters](/_includes/trace/time_histogram.png)
+![Histogram of duration of encounters](/assets/img/trace/time_histogram.png)
 
 As can be expected, most encounters were short ones with only one ping, and lasted less than a minute. There is a pretty long tail though - with the longest encounter lasting slightly above 40 minutes!
 
@@ -85,38 +85,38 @@ As can be expected, most encounters were short ones with only one ping, and last
 # Signal Strength
 Unfortunately, as the RSSI signal doesn't have standard units, I am unable to calculate the distance of the other party from my phone simply based on the RSSI data. The data can however give me a sense of how these distances are distributed. Here, I take the average RSSI per "session" with each individual to remove the bias of longer sessions having more than one data entry.
 
-![Histogram of average RSSI per session](/_includes/trace/rssi_average.png)
+![Histogram of average RSSI per session](/assets/img/trace/rssi_average.png)
 
 A pretty normal distribution, centered around -90 to -85, perhaps with a slight skew to the left (more people who were far than who were near). I'm not quite sure what the cutoff would be for the TraceTogether team to consider someone to have been in close contact with you both in terms of RSSI and length of duration though.
 
 What we can do however is to plot the received signal strength of each individual with a different colour to get a sense of how different encounters moved around me (my phone) each time I turned my bluetooth on. A dinner at Clementi hawker center and subsequent quick jaunt in a supermarket with three friends looks like this:
 
-![RSSI of encounters at Clementi](/_includes/trace/rssi_hawker.png)
+![RSSI of encounters at Clementi](/assets/img/trace/rssi_hawker.png)
 
 This outing contained the longest encounter I had of 45 minutes (the blue line from 7.30pm to about 8.15pm). I suspect that this was one of my friends as within this time frame we were moving from the hawker center to the supermarket, and it seems unlikely that someone else would have been doing the same thing! (unfortunately he hasn't confirmed or denied his phone model so I can't be sure!)
 
 As for a HIIT session at my gym, where we are normally less than 10 per class and my phone was left in my bag at the side of the room:
 
-![RSSI of encounters at Move to Live gym](/_includes/trace/rssi_gym.png)
+![RSSI of encounters at Move to Live gym](/assets/img/trace/rssi_gym.png)
 
 Clearly a lot less activity!
 
 Plotting the rssi of each encounter over a background of when scanning started and stopped (blue when scanning, white when stopped), we see the following:
 
-![Encounters and scanning over whole period](/_includes/trace/rssi_scanning.png)
+![Encounters and scanning over whole period](/assets/img/trace/rssi_scanning.png)
 
 Evidently, there were quite a few times when TraceTogether was scanning but no pings were received. Zooming into one day:
 
-![Encounters and scanning over one day](/_includes/trace/rssi_scanning_day.png)
+![Encounters and scanning over one day](/assets/img/trace/rssi_scanning_day.png)
 
 This was the last day before Circuit Breaker officially started, when I headed back to my office and was camped outside to work in between time to alternate time in the office with my colleague!
 
 # Phone Models
 Others who've extracted their data have also looked at the distribution of phone models encountered. From my data, Samsung appears to have a disproportionately large amount of TraceTogether users, and this is in line with observations from others too. This is likely due to complications of using the app with iPhone resulting in slower uptake among iPhone users (complications such as having to keep it in the foreground, having to keep the screen on - if not for the latest version of the app, at least at the start).
 
-![Phone brands encountered](/_includes/trace/phone_brand.png)
+![Phone brands encountered](/assets/img/trace/phone_brand.png)
 
-![Phone models encountered](/_includes/trace/phone_models.png)
+![Phone models encountered](/assets/img/trace/phone_models.png)
 
 # Conclusion
 So would TraceTogether really be useful in tracing contacts? I would say that it's main utility is indeed not so much in helping you remember which friends you met but to track the casual strangers you might come into close contact with. This little exercise has made me realize just how many unknown people I would come into contact with in just one outing - especially knowing that the data represents just a small portion of the actual number of people I would have met! I suspect that the app would have been a lot more helpful if it had been more widely installed and at an earlier date, unfortunately, with the standard government-as-panopticon concerns, this might have been hard to swallow. Full access to such data over a long period of time from every resident in the country would certainly allows tracking of who each person met and where they went, but I would imagine that there would be a lot of noise in the data in shorter time frames (I'd meet a friend as often / as rarely as a regular at the gym with whom I've never spoken a word, and it'd be hard to differentiate one data point from the other). On the other hand, if you were indeed carrying out suspicious business, you could probably just turn off your bluetooth or better yet, leave your phone at home.
