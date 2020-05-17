@@ -49,9 +49,7 @@ layout: default
     {% assign listed_posts_urls = page.url | split: ' ' %}
     <ul class="related-posts">
       {% for tag in page.tags %}
-        <li>{{ tag }}</li>
         {% for mypost in site.tags[tag] limit:2 %}
-          <li>{{ mypost.url }}</li>
           {% if listed_posts_urls contains mypost.url %}
           {% else %}
             <li>

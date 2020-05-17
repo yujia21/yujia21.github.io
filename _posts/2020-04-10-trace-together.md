@@ -3,7 +3,7 @@ layout: post
 title: "What data does TraceTogether really track?"
 author: "Yu Jia Cheong"
 categories: personal
-tags: [tracetogether singapore data covid19]
+tags: [singapore, EDA, behaviour]
 image: city-2.jpg
 ---
 
