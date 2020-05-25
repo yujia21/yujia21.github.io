@@ -28,7 +28,6 @@ layout: default
   <span>
   {% for tag in page.tags %}
     {% capture tag_name %}{{ tag }}{% endcapture %}
-    $tag_name = str_replace(' ', '_', $tag_name);
     <a href="/tag/{{ tag_name }}">{{ tag_name }}</nobr></code></a>&nbsp;
   {% endfor %}
   </span>
