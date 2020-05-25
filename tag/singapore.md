@@ -1,6 +1,6 @@
 ---
 layout: tagpage
-title: "Tag: EDA"
-tag: EDA
+title: "Tag: singapore"
+tag: singapore
 robots: noindex
 ---

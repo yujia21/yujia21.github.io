@@ -3,7 +3,7 @@ layout: post
 title: "Which boat should my rowing club buy?"
 author: "Yu Jia Cheong"
 categories: personal
-tags: [sports, singapore, EDA, NLP]
+tags: [EDA]
 image: row.jpg
 ---
 
@@ -67,6 +67,6 @@ Anonymizing slightly the names, we have:
 
 Unfortunately, our most frequent rowers were all in our under 18 junior team, or already have served / are serving in the committee, which means no rest for the current committee yet...
 
-As a side note, I had personally counted 82 rows in 2019. Barring two days of regatta and an outing in France, the above count is still missing a good number of rows! This is probably due to the couple of weeks where fumigation was being carried out at the reservoir and rowing times were shifted, resulting in the boat usage data being temporarily logged on a separate Google Sheet. 
+As a side note, I had personally counted 82 rows in 2019. Barring two days of regatta and an outing in France, the above count is still missing a good number of rows! This is probably due to the couple of weeks where fumigation was being carried out at the reservoir and rowing times were shifted, resulting in the boat usage data being temporarily logged on a separate Google Sheet.
 
 Time to give myself a pat on the back for being one of the most frequent rowers in the club, and retire my analysis notebook till the end of 2020...

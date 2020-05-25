@@ -3,7 +3,7 @@ layout: post
 title: "What data does TraceTogether really track?"
 author: "Yu Jia Cheong"
 categories: personal
-tags: [singapore, EDA, behaviour]
+tags: [singapore, EDA]
 image: city-2.jpg
 ---
 

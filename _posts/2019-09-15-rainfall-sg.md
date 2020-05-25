@@ -3,7 +3,7 @@ layout: post
 title: "How much does it rain in Singapore?"
 author: "Yu Jia Cheong"
 categories: weather
-tags: [weather, rain, singapore, EDA]
+tags: [singapore, EDA]
 image: rain-1.jpg
 ---
 # Dataset
