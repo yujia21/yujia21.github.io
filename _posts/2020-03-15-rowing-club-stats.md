@@ -3,7 +3,7 @@ layout: post
 title: "Which boat should my rowing club buy?"
 author: "Yu Jia Cheong"
 categories: personal
-tags: [EDA]
+tags: [exploratory data analysis]
 image: row.jpg
 ---
 

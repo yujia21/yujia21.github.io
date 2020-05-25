@@ -1,6 +1,6 @@
 ---
 layout: tagpage
-title: "Tag: machine_learning"
-tag: machine_learning
+title: "Tag: machine learning"
+tag: machine learning
 robots: noindex
 ---
