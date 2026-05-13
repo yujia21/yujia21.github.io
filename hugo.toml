@@ -1,5 +1,5 @@
 baseurl      = "yujia21.github.io"
-title        = "Yu Jia's Portfolio"
+title        = "Yu Jia's Website"
 languageCode = "en-us"
 theme        = "hello-friend-ng"
 pagination.pagerSize     = 10
@@ -11,7 +11,7 @@ pagination.pagerSize     = 10
   dateformNumTime = "2006-01-02 15:04"
 
   # Subtitle for home
-  homeSubtitle = "A Portfolio of Random Projects"
+  homeSubtitle = "Hello! Welcome to my site. Here, you can find my technical portfolio and some of my writing (we contain multitudes)."
 
   # Set disableReadOtherPosts to true in order to hide the links to other posts.
   disableReadOtherPosts = false
@@ -23,8 +23,8 @@ pagination.pagerSize     = 10
   enableGlobalLanguageMenu = false
 
   # Metadata mostly used in document's head
-  description = "Yu Jia's Portfolio"
-  keywords = "homepage, blog, data science, software, portfolio"
+  description = "Yu Jia's Website"
+  keywords = "homepage, blog, data science, software engineering, python, portfolio"
   images = [""]
 
 [taxonomies]
@@ -34,13 +34,13 @@ pagination.pagerSize     = 10
 
 [languages]
   [languages.en]
-    title = "Welcome"
+    title = "yujia21"
     keywords = ""
     copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
     readOtherPosts = "Read other posts"
 
   [languages.en.params]
-    subtitle  = "Data Science Portfolio"
+    subtitle  = ""
 
     [languages.en.params.logo]
       logoText = "home"
@@ -50,13 +50,30 @@ pagination.pagerSize     = 10
     # path = "/img/your-example-logo.svg"
     # alt = "Your example logo alt text"
 
-  # And you can even create generic menu
-  [[menu.main]]
-    identifier = "portfolio"
-    name       = "Portfolio"
-    url        = "/portfolio"
-
   [[menu.main]]
     identifier = "about"
     name       = "About"
     url        = "/about"
+
+  [[menu.main]]
+    identifier = "portfolio"
+    name       = "Tech Portfolio"
+    url        = "/portfolio"
+
+  [[menu.main]]
+    identifier = "writing"
+    name       = "Writing"
+    url        = "/writing"
+
+  [[params.social]]
+    name = "email"
+    url = "mailto:yujia21.writes@gmail.com"
+  [[params.social]]
+    name = "github"
+    url = "https://github.com/yujia21/"
+  [[params.social]]
+    name = "gitlab"
+    url = "https://gitlab.com/yujia21/"
+  [[params.social]]
+    name = "linkedin"
+    url = "https://www.linkedin.com/in/yujia21/"
