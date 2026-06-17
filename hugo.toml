@@ -1,7 +1,8 @@
-baseurl      = "yujia21.github.io"
-title        = "Yu Jia's Website"
-languageCode = "en-us"
-theme        = "hello-friend-ng"
+baseurl            = "yujia21.github.io"
+title              = "Yu Jia's Website"
+languageCode       = "en-us"
+theme              = "hello-friend-ng"
+disablePathToLower = true
 pagination.pagerSize     = 10
 
 [params]
