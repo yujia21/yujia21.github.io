@@ -57,14 +57,19 @@ pagination.pagerSize     = 10
     url        = "/about"
 
   [[menu.main]]
-    identifier = "portfolio"
-    name       = "Tech Portfolio"
-    url        = "/portfolio"
+    identifier = "tech"
+    name       = "Tech Writing"
+    url        = "/tech"
 
   [[menu.main]]
-    identifier = "writing"
-    name       = "Writing"
-    url        = "/writing"
+    identifier = "websites"
+    name       = "Websites"
+    url        = "/websites"
+
+  [[menu.main]]
+    identifier = "poetry"
+    name       = "Poetry"
+    url        = "/poetry"
 
   [[params.social]]
     name = "email"
